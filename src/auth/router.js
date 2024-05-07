@@ -1,28 +1,44 @@
 'use strict';
 require('dotenv').config();
-
-const PORT = process.env.PORT;
+const router = require('express').Router();
 
 const bcrypt = require("bcrypt");
 const base64 = require("base-64");
 
+const {Users} = require('./models');
+router.post('/signup', async (req, res) => {
+    console.log(req.body)
+    try {
+        req.body.password = await bcrypt.hash(req.body.password, 10);
+        const record = await Users.create(req.body);
+        res.status(200).json(record);
+    } catch (e) { res.status(403).send(
+        'Error Creating User');
+        console.error(e.message);
+    }
+});
+router.post('/signin', basicAuth);
+router.get('/', test);
 
+function test(req, res) {
+    console.log("router is online")
+    res.status(200).send("Hello World");
+}
 
-app.post('/signup', handleSignIn);
-app.post('/signin', basicAuth());
 // Signup Route -- create a new user
 // Two ways to test this route with httpie
 // echo '{"username":"john","password":"foo"}' | http post :3000/signup
 // http post :3000/signup username=john password=foo
 
 async function handleSignIn(req, res, next) {
+    console.log("body?",req.body)
     try {
         req.body.password = await bcrypt.hash(req.body.password, 4);
         const record = await Users.create(req.body);
         res.status(200).json(record);
     } catch (e) {
-        res.status(403).send('Error Creating User');
-        console.error(e.message) //added
+        res.status(403).send('Error Creating User / Sign in module');
+        console.error("sign up fail ",e.message) //added
     }
 }
 
@@ -53,8 +69,6 @@ async function basicAuth(req, res) {
     } catch (error) {
         res.status(403).send('Invalid Login');
     }
-
-
-
 }
 
+module.exports = router;
