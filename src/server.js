@@ -10,13 +10,15 @@ const app = express();
 
 const userRoutes = require('./auth/router.js');
 
-const notFoundHandler = require('./handlers/500');
+const notFoundHandler = require('./handlers/404');
 const errorHandler = require('./handlers/500');
 
 app.use(cors());
 app.use(express.json());
 app.use(userRoutes);
 
+app.get("*", notFoundHandler);
+app.use(errorHandler)
 function start(port) {
     app.listen(port, () => {
         console.log(`server  is UP on ${port}`);
