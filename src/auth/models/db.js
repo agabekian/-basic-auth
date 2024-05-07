@@ -8,11 +8,11 @@ const sequelize = new Sequelize(
         host: 'localhost',
     });
 
-const usersModel = require('./users.js');
+const usersSchema = require('./users.js');
 
 module.exports = {
-    db: sequelize,                      // -->./index.js
-    Users: usersModel(
+    db: sequelize,                      // -->./db.js
+    Users: usersSchema(
         sequelize, DataTypes
     ),
 };

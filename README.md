@@ -31,7 +31,7 @@ Tests
 * NODE_ENV ( test and development modes)
 
 #### Running the app
-* node index.js
+* node db.js
 
 Tests
 * NA
