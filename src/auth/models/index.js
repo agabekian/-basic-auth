@@ -7,6 +7,7 @@ const sequelize = new Sequelize(
         dialect: 'postgres',
         host: 'localhost',
     });
+
 const usersModel = require('./users.js');
 
 module.exports = {
