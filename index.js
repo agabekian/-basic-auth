@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const server = require('./src/server');
 
-const {db} = require('./src/auth/models/');
+const {db} = require('./src/auth/models/db');
 
 db.sync()
     .then(() => {

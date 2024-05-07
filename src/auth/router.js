@@ -1,11 +1,10 @@
 'use strict';
-require('dotenv').config();
 const router = require('express').Router();
 
 const bcrypt = require("bcrypt");
-const base64 = require("base-64");
+// const base64 = require("base-64");
 
-const {Users} = require('./models');
+const {Users} = require('./models/db');
 const {logger} = require("sequelize/lib/utils/logger");
 const {basicAuth} = require("./middleware/basic");
 
